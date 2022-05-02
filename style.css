@@ -1,0 +1,28 @@
+body {
+    background-image: url(/image/fundo.jpg);
+}
+
+header {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    color: white;
+    text-align: center;
+}
+
+h3 {
+    font-family: 'Rubik Mono One', sans-serif;
+}
+
+section {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.315);
+}
+
+.input-group-append {
+    cursor: pointer;
+}
