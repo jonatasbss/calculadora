@@ -13,7 +13,49 @@ class Calcular {
     this.clear();
   }
 
+  calculate() {
+    let resultado;
+    const previousOperandFloat = parseFloat(this.previousOperand);
+    const currentOperandFloat = parseFloat(this.currentOperand);
+
+    if (isNaN(previousOperandFloat) || isNaN(currentOperandFloat)) return;
+
+    switch (this.operation) {
+      case "+":
+        resultado = previousOperandFloat + currentOperandFloat;
+        break;
+      case "-":
+        resultado = previousOperandFloat - currentOperandFloat;
+        break;
+      case "/":
+        resultado = previousOperandFloat / currentOperandFloat;
+        break;
+      case "*":
+        resultado = previousOperandFloat * currentOperandFloat;
+        break;
+      default:
+        return;
+    }
+
+    this.currentOperand = resultado;
+    this.operation = undefined;
+    this.previousOperand = "";
+  }
+
+  chooseOperation(operation) {
+    if (this.previousOperand !== "") {
+      this.calculate();
+    }
+
+    this.operation = operation;
+
+    this.previousOperand = this.currentOperand;
+    this.currentOperand = "";
+  }
+
   appendNumber(number) {
+    if (this.currentOperand.includes(".") && number === ".") return;
+
     this.currentOperand = `${this.currentOperand}${number.toString()}`;
   }
 
@@ -24,7 +66,9 @@ class Calcular {
   }
 
   updateDisplay() {
-    this.previousTextElement.innerText = this.previousOperand;
+    this.previousTextElement.innerText = `${this.previousOperand} ${
+      this.operation || ""
+    }`;
     this.currentTextElement.innerText = this.currentOperand;
   }
 }
@@ -38,7 +82,19 @@ for (const numberButton of numberButtons) {
   });
 }
 
+for (const operadorButton of operadorButtons) {
+  operadorButton.addEventListener("click", () => {
+    calcular.chooseOperation(operadorButton.innerText);
+    calcular.updateDisplay();
+  });
+}
+
 allClearButton.addEventListener("click", () => {
   calcular.clear();
+  calcular.updateDisplay();
+});
+
+igualButtons.addEventListener("click", () => {
+  calcular.calculate();
   calcular.updateDisplay();
 });
