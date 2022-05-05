@@ -4,9 +4,8 @@
   margin: 0;
   padding: 0;
 }
-
 body {
-  background-image: url(/image/fundo.jpg);
+  background-image: url(image/fundo.jpg);
 }
 
 header {
