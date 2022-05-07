@@ -5,11 +5,12 @@
   padding: 0;
 }
 body {
-  background: rgb(34, 193, 195);
-  background: radial-gradient(
-    circle,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(253, 187, 45, 1) 100%
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    0deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 98, 121, 1) 50%,
+    rgba(0, 212, 255, 1) 100%
   );
 }
 
@@ -44,7 +45,7 @@ header {
 }
 
 .grid-container > .operador {
-  background: #22c1c3;
+  background: #fcb045;
 }
 
 .span-two {
