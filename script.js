@@ -13,6 +13,33 @@ class Calcular {
     this.clear();
   }
 
+  formatNumeroDisplay(number) {
+    const numberDigits = number.toString();
+
+    const integerDigits = parseFloat(numberDigits.split(".")[0]);
+    const decimalDigits = numberDigits.split(".")[1];
+
+    let integerDisplay;
+
+    if (isNaN(integerDigits)) {
+      integerDisplay = "";
+    } else {
+      integerDisplay = integerDigits.toLocaleString("en", {
+        maximumFractionDigits: 0,
+      });
+    }
+
+    if (decimalDigits != null) {
+      return `${integerDigits}.${decimalDigits}`;
+    } else {
+      return integerDisplay;
+    }
+  }
+
+  delete() {
+    this.currentOperand = this.currentOperand.toString().slice(0, -1);
+  }
+
   calculate() {
     let resultado;
     const previousOperandFloat = parseFloat(this.previousOperand);
@@ -43,6 +70,7 @@ class Calcular {
   }
 
   chooseOperation(operation) {
+    if (this.currentOperand == "") return;
     if (this.previousOperand !== "") {
       this.calculate();
     }
@@ -66,10 +94,12 @@ class Calcular {
   }
 
   updateDisplay() {
-    this.previousTextElement.innerText = `${this.previousOperand} ${
-      this.operation || ""
-    }`;
-    this.currentTextElement.innerText = this.currentOperand;
+    this.previousTextElement.innerText = `${this.formatNumeroDisplay(
+      this.previousOperand
+    )} ${this.operation || ""}`;
+    this.currentTextElement.innerText = this.formatNumeroDisplay(
+      this.currentOperand
+    );
   }
 }
 
@@ -96,5 +126,10 @@ allClearButton.addEventListener("click", () => {
 
 igualButtons.addEventListener("click", () => {
   calcular.calculate();
+  calcular.updateDisplay();
+});
+
+deleteButtons.addEventListener("click", () => {
+  calcular.delete();
   calcular.updateDisplay();
 });
